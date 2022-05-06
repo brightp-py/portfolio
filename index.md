@@ -1,3 +1,22 @@
+<!-- shrink header after scrolling -->
+
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (window.pageYOffset > 0) {
+            document.getElementById("header_wrap").style.height = "100px";
+            document.getElementById("content").style.paddingTop = "175px";
+        } else {
+            document.getElementById("header_wrap").style.height = "100%";
+            document.getElementById("content").style.paddingTop = "150%";
+        }
+    }
+</script>
+
+<!-- links to other sites -->
+
+<div id="content" markdown="1">
 <table width="100%" table-layout="fixed">
 <tr>
 <td class="center_element">
@@ -25,6 +44,12 @@
 
 ---
 
+![urs-presentation-2022.jpg](img/urs-presentation-2022.jpg)
+
+![urs-poster.jpg](img/urs-poster.jpg)
+
+---
+
 <table width="100%">
 <tr>
 <td width="50%" class="code_box">
@@ -40,10 +65,9 @@
 <div><button id="convert" pys-onClick="convert">
 Convert
 </button></div>
+</div>
 
-![urs-presentation-2022.jpg](img/urs-presentation-2022.jpg)
-
-![urs-poster.jpg](img/urs-poster.jpg)
+<!-- main pyscript code -->
 
 <py-script>
 in_ = Element("phrase")

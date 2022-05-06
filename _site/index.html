@@ -5,8 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <meta name="carousel" content="#frontpage-carousel">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=b7a346e52981a5993ad119b7c4309e023d836be8">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=10088ea455bebfecb64b0134f650bd6d29632e73">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <title>brighton p.</title>
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
@@ -48,7 +47,7 @@
         <header class="inner">
 
           <h1 id="project_title">brighton pauli</h1>
-          <h2 id="project_tagline">Hello world!</h2>
+          <!-- <h2 id="project_tagline">Hello world!</h2> -->
 
         </header>
     </div>
@@ -56,7 +55,26 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <table width="100%" table-layout="fixed">
+        <!-- shrink header after scrolling -->
+
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (window.pageYOffset > 0) {
+            document.getElementById("header_wrap").style.height = "100px";
+            document.getElementById("content").style.paddingTop = "175px";
+        } else {
+            document.getElementById("header_wrap").style.height = "100%";
+            document.getElementById("content").style.paddingTop = "150%";
+        }
+    }
+</script>
+
+<!-- links to other sites -->
+
+<div id="content">
+  <table width="100%" table-layout="fixed">
 <tr>
 <td class="center_element">
     <a href="https://github.com/brightp-py" target="_blank">
@@ -81,9 +99,15 @@
 </tr>
 </table>
 
-<hr />
+  <hr />
 
-<table width="100%">
+  <p><img src="/img/urs-presentation-2022.jpg" alt="urs-presentation-2022.jpg" /></p>
+
+  <p><img src="/img/urs-poster.jpg" alt="urs-poster.jpg" /></p>
+
+  <hr />
+
+  <table width="100%">
 <tr>
 <td width="50%" class="code_box">
     <textarea id="phrase" rows="15" cols="40" class="code_write"></textarea>
@@ -95,13 +119,12 @@
 </tr>
 </table>
 
-<div><button id="convert" pys-onclick="convert">
+  <div><button id="convert" pys-onclick="convert">
 Convert
 </button></div>
+</div>
 
-<p><img src="/img/urs-presentation-2022.jpg" alt="urs-presentation-2022.jpg" /></p>
-
-<p><img src="/img/urs-poster.jpg" alt="urs-poster.jpg" /></p>
+<!-- main pyscript code -->
 
 <py-script>
 in_ = Element("phrase")
