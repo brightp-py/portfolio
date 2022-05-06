@@ -2,3 +2,31 @@
 ---
 
 @import "{{ site.theme }}";
+
+/* Overrides */
+
+table, th, td {
+    border: 0px solid #373737;
+    background-color: transparent;
+    padding: 1px;
+}
+
+table {
+    margin-bottom: 3px;
+}
+
+.center_element {
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+img {
+    background-color: transparent;
+    border: transparent;
+    box-shadow: 0 0 5px transparent;
+    -webkit-box-shadow: 0 0 5px transparent;
+    -moz-box-shadow: 0 0 5px transparent;
+    -o-box-shadow: 0 0 5px transparent;
+    -ms-box-shadow: 0 0 5px transparent;
+}
