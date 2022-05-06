@@ -267,10 +267,20 @@ Small Device Styles
   h6 { font-size: 12px; }
   code, pre { min-width: 240px; max-width: 320px; font-size: 11px; } }
 /* Overrides */
-table, th, td { border: 0px solid #373737; background-color: transparent; padding: 1px; }
+table, th, td { border: 1px solid #373737; background-color: transparent; padding: 0px; }
 
-table { margin-bottom: 3px; }
+table { margin-bottom: 0px; border-collapse: collapse; }
+
+tr { height: auto; margin: 0; padding: 0; }
+
+td { margin: 0; padding: 0; }
 
 .center_element { height: 100px; text-align: center; vertical-align: middle; }
+
+.code_box { vertical-align: top; background-color: #ffffff; }
+
+.code_write { margin: 0; padding: 0; border: 0px; }
+
+code { box-shadow: 0 0 10px transparent; }
 
 img { background-color: transparent; border: transparent; box-shadow: 0 0 5px transparent; -webkit-box-shadow: 0 0 5px transparent; -moz-box-shadow: 0 0 5px transparent; -o-box-shadow: 0 0 5px transparent; -ms-box-shadow: 0 0 5px transparent; }

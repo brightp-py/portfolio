@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
     <meta name="carousel" content="#frontpage-carousel">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=d6163aba326175fd8bfd3a44d629ddff30892a34">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=b7a346e52981a5993ad119b7c4309e023d836be8">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <title>brighton p.</title>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>brighton pauli | Hello world!</title>
@@ -82,9 +83,33 @@
 
 <hr />
 
+<table width="100%">
+<tr>
+<td width="50%" class="code_box">
+    <textarea id="phrase" rows="15" cols="40" class="code_write"></textarea>
+    <!-- <py-inputbox id="phrase"></py-inputbox> -->
+</td>
+<td class="code_box">
+    <code id="display" box-shadow="transparent"></code>
+</td>
+</tr>
+</table>
+
+<div><button id="convert" pys-onclick="convert">
+Convert
+</button></div>
+
 <p><img src="/img/urs-presentation-2022.jpg" alt="urs-presentation-2022.jpg" /></p>
 
 <p><img src="/img/urs-poster.jpg" alt="urs-poster.jpg" /></p>
+
+<py-script>
+in_ = Element("phrase")
+out = Element("display")
+
+def convert(*args, **kwargs):
+    out.write(in_.value)
+</py-script>
 
       </section>
     </div>

@@ -6,19 +6,46 @@
 /* Overrides */
 
 table, th, td {
-    border: 0px solid #373737;
+    border: 1px solid #373737;
     background-color: transparent;
-    padding: 1px;
+    padding: 0px;
 }
 
 table {
-    margin-bottom: 3px;
+    margin-bottom: 0px;
+    border-collapse: collapse;
+}
+
+tr {
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+td {
+    margin: 0;
+    padding: 0;
 }
 
 .center_element {
     height: 100px;
     text-align: center;
     vertical-align: middle;
+}
+
+.code_box {
+    vertical-align: top;
+    background-color: #ffffff;
+}
+
+.code_write {
+    margin: 0;
+    padding: 0;
+    border: 0px;
+}
+
+code {
+    box-shadow: 0 0 10px transparent;
 }
 
 img {
