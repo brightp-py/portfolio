@@ -6,9 +6,11 @@
     function scrollFunction() {
         if (window.pageYOffset > 0) {
             document.getElementById("header_wrap").style.height = "100px";
+            document.getElementById("header_wrap").style.backgroundPosition = "center top";
             document.getElementById("content").style.paddingTop = "175px";
         } else {
             document.getElementById("header_wrap").style.height = "100%";
+            document.getElementById("header_wrap").style.backgroundPosition = "center center";
             document.getElementById("content").style.paddingTop = "150%";
         }
     }

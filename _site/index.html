@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=10088ea455bebfecb64b0134f650bd6d29632e73">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=f5300b72d9eb3fe5275d197f34eaa62829c161be">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <title>brighton p.</title>
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
@@ -63,9 +63,11 @@
     function scrollFunction() {
         if (window.pageYOffset > 0) {
             document.getElementById("header_wrap").style.height = "100px";
+            document.getElementById("header_wrap").style.backgroundPosition = "center top";
             document.getElementById("content").style.paddingTop = "175px";
         } else {
             document.getElementById("header_wrap").style.height = "100%";
+            document.getElementById("header_wrap").style.backgroundPosition = "center center";
             document.getElementById("content").style.paddingTop = "150%";
         }
     }
