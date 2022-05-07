@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=f5300b72d9eb3fe5275d197f34eaa62829c161be">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=0dcd421d35ce3106f3f7e4153880a64a3526a77d">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <title>brighton p.</title>
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
@@ -103,7 +103,42 @@
 
   <hr />
 
+  <h1 id="research-assistant">Research Assistant</h1>
+
   <p><img src="/img/urs-presentation-2022.jpg" alt="urs-presentation-2022.jpg" /></p>
+
+  <p>I work as a research assistant in Dr. Lisa Levinson’s
+<a href="https://umwordlab.github.io" target="_blank">WordLab</a>  at UofM. 
+Our research focuses on the psycholinguistic properties of human language 
+processing. I, in particular, use my experience in computer science to pursue 
+the computational side of the topic, using language models to imitate human 
+brains.</p>
+
+  <p>In simpler terms:</p>
+
+  <p>When you read a sentence, you brain has to take some amount of time to process 
+each word. Depending on different factors, you make take more or less time to 
+process a given word, based on how much effort it requires. Some of this time 
+comes from simple factors, like word length and how common it is. Another 
+component is <strong>surprisal</strong>, or how surprising it was to find this word in this 
+context.</p>
+
+  <p>We can simulate surprisal values using computational language models, which 
+take a piece of a sentence and provide the probability that a given word 
+follows. By taking the negative logarithms of these probabilities, we get 
+values that are linearly correlated with reading times (along with other 
+related psycholinguistic effects).</p>
+
+  <p>Different language models have different capabilities when it comes to 
+predicting reading times. Simple models like 
+<a href="https://en.wikipedia.org/wiki/N-gram" target="_blank">n-grams</a>, 
+for instance, are poor predictors of psycholinguistic effects when n is low 
+(bigrams), but improve as n increases.</p>
+
+  <p>In my research, I primarily focus on the 
+<a href="https://arxiv.org/abs/1602.07776" target="_blank">RNNG</a> model, 
+which goes beyond classic language models by building entire syntax trees, 
+not just the sentence’s words.</p>
 
   <p><img src="/img/urs-poster.jpg" alt="urs-poster.jpg" /></p>
 
@@ -143,7 +178,7 @@ def convert(*args, **kwargs):
     <div id="footer_wrap" class="outer">
       <footer class="inner">
         
-        <p class="copyright">brighton pauli maintained by <a href="https://github.com/brightp-py">brightp-py</a></p>
+        <p class="copyright">This site is maintained by <a href="https://github.com/brightp-py">brightp-py</a></p>
         
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>

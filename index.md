@@ -46,7 +46,42 @@
 
 ---
 
+# Research Assistant
+
 ![urs-presentation-2022.jpg](img/urs-presentation-2022.jpg)
+
+I work as a research assistant in Dr. Lisa Levinson's
+<a href="https://umwordlab.github.io" target="_blank">WordLab</a>  at UofM. 
+Our research focuses on the psycholinguistic properties of human language 
+processing. I, in particular, use my experience in computer science to pursue 
+the computational side of the topic, using language models to imitate human 
+brains.
+
+In simpler terms:
+
+When you read a sentence, you brain has to take some amount of time to process 
+each word. Depending on different factors, you make take more or less time to 
+process a given word, based on how much effort it requires. Some of this time 
+comes from simple factors, like word length and how common it is. Another 
+component is **surprisal**, or how surprising it was to find this word in this 
+context.
+
+We can simulate surprisal values using computational language models, which 
+take a piece of a sentence and provide the probability that a given word 
+follows. By taking the negative logarithms of these probabilities, we get 
+values that are linearly correlated with reading times (along with other 
+related psycholinguistic effects).
+
+Different language models have different capabilities when it comes to 
+predicting reading times. Simple models like 
+<a href="https://en.wikipedia.org/wiki/N-gram" target="_blank">n-grams</a>, 
+for instance, are poor predictors of psycholinguistic effects when n is low 
+(bigrams), but improve as n increases.
+
+In my research, I primarily focus on the 
+<a href="https://arxiv.org/abs/1602.07776" target="_blank">RNNG</a> model, 
+which goes beyond classic language models by building entire syntax trees, 
+not just the sentence's words.
 
 ![urs-poster.jpg](img/urs-poster.jpg)
 

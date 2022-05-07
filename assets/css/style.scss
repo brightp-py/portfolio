@@ -3,7 +3,29 @@
 
 @import "{{ site.theme }}";
 
+/* Colors */
+
+$light-blue: #6496c8;
+$dark-blue: #184169;
+$midnight: #1a1c37;
+$yellow: #fac864;
+$gray: #818285;
+$black: #141417;
+
 /* Overrides */
+
+h1 {
+    color: $dark-blue;
+}
+
+h2 {
+    color: $light-blue;
+}
+
+p {
+    font-size: 18px;
+    text-align: justify;
+}
 
 #header_wrap {
     height: 100%;
@@ -23,7 +45,7 @@
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    padding: 0px 0px 0px calc(calc(100% - 640px) / 2);
+    padding: 0px 0px 0px calc(calc(100% - 640px) / 2 + 10px);
 }
 
 #content {
@@ -31,8 +53,12 @@
     transition: 0.2s;
 }
 
+#footer_wrap {
+    background: $dark-blue;
+}
+
 table, th, td {
-    border: 0px solid #373737;
+    border: 0px solid $black;
     background-color: transparent;
     padding: 0px;
 }
@@ -82,4 +108,5 @@ img {
     -moz-box-shadow: 0 0 5px transparent;
     -o-box-shadow: 0 0 5px transparent;
     -ms-box-shadow: 0 0 5px transparent;
+    max-width: 640px;
 }

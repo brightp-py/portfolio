@@ -266,14 +266,23 @@ Small Device Styles
   h5 { font-size: 14px; }
   h6 { font-size: 12px; }
   code, pre { min-width: 240px; max-width: 320px; font-size: 11px; } }
+/* Colors */
 /* Overrides */
+h1 { color: #184169; }
+
+h2 { color: #6496c8; }
+
+p { font-size: 18px; text-align: justify; }
+
 #header_wrap { height: 100%; width: 100%; background-image: url("../images/tower.jpg"); background-size: cover; background-position: center center; position: fixed; top: 0; transition: 0.2s; z-index: 1; }
 
-#header_wrap .inner { margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%); padding: 0px 0px 0px calc(calc(100% - 640px) / 2); }
+#header_wrap .inner { margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%); padding: 0px 0px 0px calc(calc(100% - 640px) / 2 + 10px); }
 
 #content { padding-top: 150%; transition: 0.2s; }
 
-table, th, td { border: 0px solid #373737; background-color: transparent; padding: 0px; }
+#footer_wrap { background: #184169; }
+
+table, th, td { border: 0px solid #141417; background-color: transparent; padding: 0px; }
 
 table { margin-bottom: 0px; border-collapse: collapse; }
 
@@ -289,4 +298,4 @@ td { margin: 0; padding: 0; }
 
 code { box-shadow: 0 0 10px transparent; }
 
-img { background-color: transparent; border: transparent; box-shadow: 0 0 5px transparent; -webkit-box-shadow: 0 0 5px transparent; -moz-box-shadow: 0 0 5px transparent; -o-box-shadow: 0 0 5px transparent; -ms-box-shadow: 0 0 5px transparent; }
+img { background-color: transparent; border: transparent; box-shadow: 0 0 5px transparent; -webkit-box-shadow: 0 0 5px transparent; -moz-box-shadow: 0 0 5px transparent; -o-box-shadow: 0 0 5px transparent; -ms-box-shadow: 0 0 5px transparent; max-width: 640px; }
