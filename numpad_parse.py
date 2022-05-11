@@ -22,7 +22,7 @@ OP3 = {
     '*-': 'log'
 }
 R_MULTOP = re.compile(r'\*(?=[0-9])')   # backwards for last->first search
-OP1 = {'-', '+'}
+OP1 = [re.compile(r'-(?=[^*/])'), re.compile(r'\+(?=[^*/])')]
 OP0 = {
     '..': '==',
     '.-': '<',
@@ -66,6 +66,8 @@ def eval_list(expr: str, use_help: bool):
     ('[4]', '+02+/.1/.')
     """
     # print('+', expr)
+    if expr == '/.':
+        return '[]', ''
     res = '['
     current = ''
     expr = '/.' + expr
@@ -105,7 +107,6 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
     This involves transforming lists and splitting along operators (in order
     of precedence).
     """
-    # print('-', expr)
     # lists
     lists = lists if lists else {}
     while '/.' in expr:
@@ -114,6 +115,7 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
         key = 'L' + str(len(lists))
         lists['v_' + key] = val
         expr = lhs + '*' + key + rem
+    print('-', expr)
 
     def final_format(expr: str):
         for key in lists:
@@ -156,19 +158,19 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
     # + -
     if op := last_operator(OP1):
         lhs, rhs = split_last(expr, op)
-        if lhs[-1] not in {'/', '*'}:
-            lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
-            # if op == '-':
-                # print(lhs, rhs, lists)
-            if op == '-' and rhs in lists:
-                res = f"{lhs}({lists[rhs][1:-1]})"
-            elif use_help:
-                f_name = {'+': 'add', '-': 'sub'}
-                res = f"{f_name[op]}({lhs}, {rhs})"
-            else:
-                res = f"{lhs} {op} {rhs}"
-            # print(expr, res)
-            return final_format(res)
+        lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
+        op = '-' if op == OP1[0] else '+'
+        # if op == '-':
+            # print(lhs, rhs, lists)
+        if op == '-' and rhs in lists:
+            res = f"{lhs}({lists[rhs][1:-1]})"
+        elif use_help:
+            f_name = {'+': 'add', '-': 'sub'}
+            res = f"{f_name[op]}({lhs}, {rhs})"
+        else:
+            res = f"{lhs} {op} {rhs}"
+        # print(expr, res)
+        return final_format(res)
 
     # operators with second priority
     # * /
@@ -302,7 +304,12 @@ def eval_code(np_code: str):
     """
     res = ""
     indentation = 0
-    has_lists = R_LISTSTART.search(np_code) is not None
+    # has_lists = R_LISTSTART.search(np_code) is not None
+    has_lists = False
+    for line in np_code.split():
+        if line.count('-\.') * 2 < line.count('\.'):
+            has_lists = True
+            break
 
     current_func = None
     current_param = {}
@@ -473,4 +480,26 @@ if __name__ == "__main__":
             ..
             .*00.*10
             ."""
-    print(eval_code(test))
+    test = """\
+    *420.
+    .2.
+    ./*01.+*02
+    ..*1.*01
+    ..*2.*02
+    .-
+    ..*2.*01
+    ..*1.*02
+    ..
+    .*00.1
+    .*8.2
+    .+/*8.-*2/-2+1
+    ../*1/+*8+*2/+*8..0
+    ...*00.*8
+    ...
+    ..*8.*8+1
+    ..
+    .
+    *00.*420-/.15.21/.
+    """
+    _, code = eval_code(test)
+    print(code)
