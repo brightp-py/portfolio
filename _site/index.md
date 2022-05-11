@@ -48,6 +48,8 @@
 
 # Research Assistant
 
+### WordLab
+
 ![urs-presentation-2022.jpg](img/urs-presentation-2022.jpg)
 
 I work as a research assistant in Dr. Lisa Levinson's
@@ -87,29 +89,69 @@ not just the sentence's words.
 
 ---
 
-<table width="100%">
-<tr>
-<td width="50%" class="code_box">
-    <textarea id="phrase" rows="15" cols="40" class="code_write"></textarea>
-    <!-- <py-inputbox id="phrase"></py-inputbox> -->
-</td>
-<td class="code_box">
-    <code id="display" box-shadow="transparent"></code>
-</td>
-</tr>
-</table>
+# Director of Internal Affairs
 
-<div><button id="convert" pys-onClick="convert">
-Convert
-</button></div>
-</div>
+### FIRST Alumni & Mentor Network at Michigan
+
+---
+
+# Pythonista
+
+### Numpad Programming Language
+
+<textarea id="phrase" rows="15" cols="85" class="code_write"></textarea>
+
+<button id="convert" pys-onClick="convert">Convert</button>
+
+<code id="display" box-shadow="transparent">Add Numpad code to the box above and hit "Convert".
+</code>
+
+Copy the full code, including necessary helper functions, here:
+
+<textarea readonly id="save" rows="5" cols="85">
+Add Numpad code to the box above and hit "Convert".
+</textarea>
+
+---
+
+# COVID-19 Volunteer Coordinator
+
+### Helpful Engineering
+
+---
+
+# Data Scientist (and World Champion)
+
+### FIRST Team 3707
+
+---
+
+# Proof I know how to use things
+
+## Adobe Premiere Pro
+
+<iframe width="640" height="426.6" src="https://www.youtube.com/embed/7Vv11KY3yNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## HTML and CSS
+
+\*Gestures broadly.\*
+
+## Latex
+
+See <a href="https://drive.google.com/file/d/16EEwpLGouQf3BKBLO61QS2T7zz3hhcAe/view?usp=sharing" target="_blank">
+my notes from Differential Equations</a>
 
 <!-- main pyscript code -->
 
 <py-script>
+from numpad_parse import convert_to_python
+
 in_ = Element("phrase")
 out = Element("display")
+save = Element("save")
 
 def convert(*args, **kwargs):
-    out.write(in_.value)
+    to_save, to_show = convert_to_python(in_.value)
+    out.write(to_show)
+    save.write(to_save)
 </py-script>

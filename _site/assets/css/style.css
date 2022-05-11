@@ -268,9 +268,11 @@ Small Device Styles
   code, pre { min-width: 240px; max-width: 320px; font-size: 11px; } }
 /* Colors */
 /* Overrides */
-h1 { color: #184169; }
+h1 { color: #184169; margin: 0; }
 
 h2 { color: #6496c8; }
+
+h3 { color: #6496c8; margin: 0; }
 
 p { font-size: 18px; text-align: justify; }
 
@@ -296,6 +298,6 @@ td { margin: 0; padding: 0; }
 
 .code_write { margin: 0; padding: 0; border: 0px; }
 
-code { box-shadow: 0 0 10px transparent; }
+code { box-shadow: 0 0 10px transparent; display: block; white-space: pre-wrap; }
 
 img { background-color: transparent; border: transparent; box-shadow: 0 0 5px transparent; -webkit-box-shadow: 0 0 5px transparent; -moz-box-shadow: 0 0 5px transparent; -o-box-shadow: 0 0 5px transparent; -ms-box-shadow: 0 0 5px transparent; max-width: 640px; }

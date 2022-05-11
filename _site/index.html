@@ -5,10 +5,16 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=0dcd421d35ce3106f3f7e4153880a64a3526a77d">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=d283b7873479e6b5cbca7416678c8588293f7c3f">
+    <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" /> -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <title>brighton p.</title>
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+      - paths:
+        - /numpad_parse.py
+        - /numpad_helpers.py
+    </py-env>
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>brighton pauli | Hello world!</title>
@@ -105,6 +111,8 @@
 
   <h1 id="research-assistant">Research Assistant</h1>
 
+  <h3 id="wordlab">WordLab</h3>
+
   <p><img src="/img/urs-presentation-2022.jpg" alt="urs-presentation-2022.jpg" /></p>
 
   <p>I work as a research assistant in Dr. Lisa Levinson’s
@@ -144,32 +152,73 @@ not just the sentence’s words.</p>
 
   <hr />
 
-  <table width="100%">
-<tr>
-<td width="50%" class="code_box">
-    <textarea id="phrase" rows="15" cols="40" class="code_write"></textarea>
-    <!-- <py-inputbox id="phrase"></py-inputbox> -->
-</td>
-<td class="code_box">
-    <code id="display" box-shadow="transparent"></code>
-</td>
-</tr>
-</table>
+  <h1 id="director-of-internal-affairs">Director of Internal Affairs</h1>
 
-  <div><button id="convert" pys-onclick="convert">
-Convert
-</button></div>
-</div>
+  <h3 id="first-alumni--mentor-network-at-michigan">FIRST Alumni &amp; Mentor Network at Michigan</h3>
 
-<!-- main pyscript code -->
+  <hr />
 
-<py-script>
+  <h1 id="pythonista">Pythonista</h1>
+
+  <h3 id="numpad-programming-language">Numpad Programming Language</h3>
+
+  <textarea id="phrase" rows="15" cols="85" class="code_write"></textarea>
+
+  <p><button id="convert" pys-onclick="convert">Convert</button></p>
+
+  <p><code id="display" box-shadow="transparent">Add Numpad code to the box above and hit "Convert".
+</code></p>
+
+  <p>Copy the full code, including necessary helper functions, here:</p>
+
+  <textarea readonly="" id="save" rows="5" cols="85">
+Add Numpad code to the box above and hit "Convert".
+</textarea>
+
+  <hr />
+
+  <h1 id="covid-19-volunteer-coordinator">COVID-19 Volunteer Coordinator</h1>
+
+  <h3 id="helpful-engineering">Helpful Engineering</h3>
+
+  <hr />
+
+  <h1 id="data-scientist-and-world-champion">Data Scientist (and World Champion)</h1>
+
+  <h3 id="first-team-3707">FIRST Team 3707</h3>
+
+  <hr />
+
+  <h1 id="proof-i-know-how-to-use-things">Proof I know how to use things</h1>
+
+  <h2 id="adobe-premiere-pro">Adobe Premiere Pro</h2>
+
+  <iframe width="640" height="426.6" src="https://www.youtube.com/embed/7Vv11KY3yNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+  <h2 id="html-and-css">HTML and CSS</h2>
+
+  <p>*Gestures broadly.*</p>
+
+  <h2 id="latex">Latex</h2>
+
+  <p>See <a href="https://drive.google.com/file/d/16EEwpLGouQf3BKBLO61QS2T7zz3hhcAe/view?usp=sharing" target="_blank">
+my notes from Differential Equations</a></p>
+
+  <!-- main pyscript code -->
+
+  <py-script>
+from numpad_parse import convert_to_python
+
 in_ = Element("phrase")
 out = Element("display")
+save = Element("save")
 
 def convert(*args, **kwargs):
-    out.write(in_.value)
+    to_save, to_show = convert_to_python(in_.value)
+    out.write(to_show)
+    save.write(to_save)
 </py-script>
+</div>
 
       </section>
     </div>
