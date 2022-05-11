@@ -304,7 +304,12 @@ def eval_code(np_code: str):
     """
     res = ""
     indentation = 0
-    has_lists = R_LISTSTART.search(np_code) is not None
+    # has_lists = R_LISTSTART.search(np_code) is not None
+    has_lists = False
+    for line in np_code.split():
+        if line.count('-\.') * 2 < line.count('\.'):
+            has_lists = True
+            break
 
     current_func = None
     current_param = {}
@@ -476,14 +481,25 @@ if __name__ == "__main__":
             .*00.*10
             ."""
     test = """\
-    *4.
-    .1.
-    .*00././.
-    .*1.0
-    .+/*1.-*01/-2+1
-    ..*1.*1+1
+    *420.
+    .2.
+    ./*01.+*02
+    ..*1.*01
+    ..*2.*02
+    .-
+    ..*2.*01
+    ..*1.*02
+    ..
+    .*00.1
+    .*8.2
+    .+/*8.-*2/-2+1
+    ../*1/+*8+*2/+*8..0
+    ...*00.*8
+    ...
+    ..*8.*8+1
     ..
     .
+    *00.*420-/.15.21/.
     """
     _, code = eval_code(test)
     print(code)
