@@ -101,14 +101,16 @@ not just the sentence's words.
 
 <textarea id="phrase" rows="15" cols="85" class="code_write"></textarea>
 
-<button id="convert" pys-onClick="convert">Convert</button>
+<div class="center">
+    <button id="convert" pys-onClick="convert">Convert</button>
+</div>
 
 <code id="display" box-shadow="transparent">Add Numpad code to the box above and hit "Convert".
 </code>
 
 Copy the full code, including necessary helper functions, here:
 
-<textarea readonly id="save" rows="5" cols="85">
+<textarea readonly id="save" rows="5" cols="85" onfocus="this.select()">
 Add Numpad code to the box above and hit "Convert".
 </textarea>
 

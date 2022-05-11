@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=1900aad7e98355a013fba121a5bf7e104e09fd7c">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=08ce60a6b26818725f260f6cbb665de31f647b9c">
     <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" /> -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <title>brighton p.</title>
@@ -164,14 +164,16 @@ not just the sentence’s words.</p>
 
   <textarea id="phrase" rows="15" cols="85" class="code_write"></textarea>
 
-  <p><button id="convert" pys-onclick="convert">Convert</button></p>
+  <div class="center">
+    <button id="convert" pys-onclick="convert">Convert</button>
+</div>
 
   <p><code id="display" box-shadow="transparent">Add Numpad code to the box above and hit "Convert".
 </code></p>
 
   <p>Copy the full code, including necessary helper functions, here:</p>
 
-  <textarea readonly="" id="save" rows="5" cols="85">
+  <textarea readonly="" id="save" rows="5" cols="85" onfocus="this.select()">
 Add Numpad code to the box above and hit "Convert".
 </textarea>
 
@@ -230,6 +232,7 @@ def convert(*args, **kwargs):
         <p class="copyright">This site is maintained by <a href="https://github.com/brightp-py">brightp-py</a></p>
         
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+        <p>Last updated 5/11/2022, 16:56 EST</p>
       </footer>
     </div>
   </body>
