@@ -66,6 +66,8 @@ def eval_list(expr: str, use_help: bool):
     ('[4]', '+02+/.1/.')
     """
     # print('+', expr)
+    if expr == '/.':
+        return '[]', ''
     res = '['
     current = ''
     expr = '/.' + expr
@@ -105,7 +107,6 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
     This involves transforming lists and splitting along operators (in order
     of precedence).
     """
-    # print('-', expr)
     # lists
     lists = lists if lists else {}
     while '/.' in expr:
@@ -114,6 +115,7 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
         key = 'L' + str(len(lists))
         lists['v_' + key] = val
         expr = lhs + '*' + key + rem
+    # print('-', expr)
 
     def final_format(expr: str):
         for key in lists:
@@ -473,4 +475,15 @@ if __name__ == "__main__":
             ..
             .*00.*10
             ."""
-    print(eval_code(test))
+    test = """\
+    *4.
+    .1.
+    .*00././.
+    .*1.0
+    .+/*1.-*01/-2+1
+    ..*1.*1+1
+    ..
+    .
+    """
+    _, code = eval_code(test)
+    print(code)
