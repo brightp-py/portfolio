@@ -93,6 +93,72 @@ not just the sentence's words.
 
 ### FIRST Alumni & Mentor Network at Michigan
 
+When I was in high school, I participated in the 
+[FIRST Robotics Competition](https://www.firstinspires.org/robotics/frc), 
+where teams of students build robots and use them to compete in tournaments. 
+Working in this environment helped me figure out what kind of a team player I 
+am, and how to commit to a project with a long term goal.
+
+Plus it was fun.
+
+When I got to college, I was still very excited about the program, and looked 
+for other students who had participated. At some point, I happened across the 
+FIRST logo drawn in chalk on the ground, with a time and place for an 
+introductory meeting for a club: the FIRST Alumni & Mentor Network at 
+Michigan (FAMNM). The group's goal was to get college students involved in 
+mentoring high school teams and volunteering at FIRST events.
+
+I signed up and gave it my all. I ended up giving a presentation on scouting 
+other teams' stats just two months after joining the group, and I attended 
+everything I could.
+
+<table width="100%" table-layout="fixed">
+<tr>
+<td>
+    <img src="img\famnm-smile.jpg" width="300"/>
+</td>
+<td class="center_element">
+    <p>
+        Baby me, when I first signed up for FAMNM.
+    </p>
+    <p>
+        September, 2019
+    </p>
+</td>
+</tr>
+</table>
+
+After a year of being an active member, and just after the onset of the 
+pandemic, I was voted in as the group's Director of Internal Affairs. This 
+gave me about the same authority as the Vice President, and was a really big 
+responsibility when there was, y'know, a pandemic going on.
+
+For two years, I worked hard to hold the organization together in a new 
+remote format. This meant getting a lot of practice keeping Zoom meetings 
+engaging, designing a new format for each term's elections, and scheduling 
+times for members to just meet up and play games to stay involved.
+
+More than anything, my time as the Director of Internal Affairs was spent 
+keeping the club stable through an extremely turbulent time. As in-person 
+events we relied on were canceled, outreach opportunities were lost, and 
+participation waned, it became our goal to just keep FAMNM's torch burning.
+
+And we succeeded.
+
+Now, as we get back into the swing of things, it's time to add more fuel to 
+that fire. For my final term participating in FAMNM, I've taken on the 
+position of Director of Marketing, meaning I'll be heading all of our 
+outreach and recruitment efforts.
+
+To get people involved in FIRST Robotics again, we'll need to give students a 
+chance to meet up with their fellow FIRST alumni to chat and build 
+connections. We'll need clear instructions on how to get involved with teams 
+and volunteering. And we'll need exciting ways to make our organization 
+visible to the whole student body.
+
+In the end, my goal is to leave this amazing club as I found it, but refreshed 
+and stronger than it ever was before.
+
 ---
 
 # Pythonista
@@ -129,6 +195,10 @@ Add Numpad code to the box above and hit "Convert".
 ---
 
 # Proof I know how to use things
+
+I do a lot of stuff. And I often have to use new things to do that stuff.
+
+Here are some examples.
 
 ## Adobe Premiere Pro
 

@@ -1,6 +1,7 @@
 """
->>> 'test'
-'test'
+numpad_parse.py.
+
+A simple (yacc-less) compiler that converts Numpad code into Python code.
 """
 
 import re
@@ -12,7 +13,6 @@ R_DEFINE = re.compile(r'\*[0-9]+\.$')
 R_PARAM = re.compile(r'[0-9]+\.\.[0-9]+$')
 R_NUMPARAM = re.compile(r'[0-9]+\.$')
 R_LISTSTART = re.compile(r'[^\-]/\.')
-# R_CALL = re.compile(r' - \[([^[]*)\]')
 
 R_COMMA = re.compile(r'(?<=[^/])\.')
 OP3 = {
@@ -29,6 +29,25 @@ OP0 = {
     '.+': '>'
 }
 
+
+# class Scope:
+
+#     def __init__(self, parent = None):
+#         """Create a new Scope object.
+        
+#         This object should only require a parent parameter, from which it will
+#         infer its variables' types.
+#         """
+#         self.vartypes = {}
+
+
+class Environment:
+
+    def __init__(self):
+        self.indentation = 0
+        self.line = 0
+
+
 def split_last(string: str, delim):
     """Split the given string along the last instance of the delim."""
     if isinstance(delim, re.Pattern):
@@ -36,6 +55,7 @@ def split_last(string: str, delim):
     else:
         rhs, lhs = string[::-1].split(delim[::-1], maxsplit=1)
     return lhs[::-1], rhs[::-1]
+
 
 def eval_number(num: str):
     """Convert the numpad number to Python form.
@@ -55,11 +75,11 @@ def eval_number(num: str):
 
 
 def eval_list(expr: str, use_help: bool):
-    """Takes a list expression (sans first bracket) and evaluates to Python.
+    """Take a list expression (sans first bracket) and evaluate to Python.
 
     Only evaluates the first list given, even if multiple appear. Returns the
     rest as numpad code.
-    
+
     >>> eval_list("4./.02/..1/.", False)
     ('[4, [-2], 1]', '')
     >>> eval_list("4/.+02+/.1/.", False)
@@ -77,12 +97,12 @@ def eval_list(expr: str, use_help: bool):
         char = expr[ind]
         if expr[ind:ind+2] == '/.' and current and current[-1] in '0123456789':
             res += eval_expr(current, use_help, False, lists) + ']'
-            for key in lists:
+            for key, val in lists.items():
                 if key in res:
-                    res = res.replace(key, lists[key])
+                    res = res.replace(key, val)
             # print('', expr, res)
             return res, expr[ind+2:]
-        elif char == '.' and expr[ind-1] != '/':
+        if char == '.' and expr[ind-1] != '/':
             res += eval_expr(current, use_help, False, lists) + ', '
             current = ''
         else:
@@ -103,7 +123,7 @@ def eval_list(expr: str, use_help: bool):
 
 def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
     """Evaluate the given numpad expression as Python code.
-    
+
     This involves transforming lists and splitting along operators (in order
     of precedence).
     """
@@ -118,64 +138,63 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
     print('-', expr)
 
     def final_format(expr: str):
-        for key in lists:
+        for key, val in lists.items():
             if key in expr:
-                expr = expr.replace(key, lists[key])
-        # expr = R_CALL.sub(r'(\1)', expr)
+                expr = expr.replace(key, val)
         if paren and any(op in expr for op in "+-*/%"):
             return '(' + expr + ')'
         return expr
-    
+
     def last_operator(ops):
         res = None
         earliest = -1
-        for op in ops:
+        for oper in ops:
             loc = -1
-            if isinstance(op, re.Pattern):
-                if search_res := op.search(expr[::-1]):
+            if isinstance(oper, re.Pattern):
+                if search_res := oper.search(expr[::-1]):
                     loc = len(expr) - search_res.span()[1]
-            elif op in expr:
-                loc = len(expr) - expr[::-1].find(op) - 1
+            elif oper in expr:
+                loc = len(expr) - expr[::-1].find(oper[::-1]) - 1
             if loc > earliest:
-                res = op
+                res = oper
                 earliest = loc
         return res
-    
+
     # operators with fourth priority
     # == < >
-    if op := last_operator(OP0):
-        lhs, rhs = split_last(expr, op)
+    if oper := last_operator(OP0):
+        lhs, rhs = split_last(expr, oper)
         lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
         if use_help:
             f_name = {'..': 'eq', '.+': 'gt', '.-': 'lt'}
-            res = f"{f_name[op]}({lhs}, {rhs})"
+            res = f"{f_name[oper]}({lhs}, {rhs})"
         else:
-            res = f"{lhs} {OP0[op]} {rhs}"
+            res = f"{lhs} {OP0[oper]} {rhs}"
         # print(expr, res)
         return final_format(res)
-    
+
     # operators with third priority
     # + -
-    if op := last_operator(OP1):
-        lhs, rhs = split_last(expr, op)
+    if oper := last_operator(OP1):
+        lhs, rhs = split_last(expr, oper)
         lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
-        op = '-' if op == OP1[0] else '+'
+        oper = '-' if oper == OP1[0] else '+'
         # if op == '-':
-            # print(lhs, rhs, lists)
-        if op == '-' and rhs in lists:
+        #     print(lhs, rhs, lists)
+        if oper == '-' and rhs in lists:
             res = f"{lhs}({lists[rhs][1:-1]})"
         elif use_help:
             f_name = {'+': 'add', '-': 'sub'}
-            res = f"{f_name[op]}({lhs}, {rhs})"
+            res = f"{f_name[oper]}({lhs}, {rhs})"
         else:
-            res = f"{lhs} {op} {rhs}"
+            res = f"{lhs} {oper} {rhs}"
         # print(expr, res)
         return final_format(res)
 
     # operators with second priority
     # * /
-    op = last_operator(['/', R_MULTOP])
-    if op == '/':
+    oper = last_operator(['/', R_MULTOP])
+    if oper == '/':
         lhs, rhs = split_last(expr, '/')
         if rhs[0] not in {'.', '+', '-'}:
             lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
@@ -185,7 +204,7 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
                 res = f"_pair({lhs} / {rhs})"
             # print(expr, res)
             return final_format(res)
-    elif op is not None:
+    elif oper is not None:
         lhs, rhs = split_last(expr, R_MULTOP)
         lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
         if use_help:
@@ -197,25 +216,25 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
 
     # operators with first priority
     # % // ** log
-    op = last_operator(OP3)
-    if op == '*-':
-        lhs, rhs = split_last(expr, op)
+    oper = last_operator(OP3)
+    if oper == '*-':
+        lhs, rhs = split_last(expr, oper)
         lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
         res = f"_pair(log({lhs}) / log({rhs}))"
         # print(expr, res)
         return final_format(res)
-    elif op is not None:
-        lhs, rhs = split_last(expr, op)
+    if oper is not None:
+        lhs, rhs = split_last(expr, oper)
         lhs, rhs = eval_expr(lhs, use_help), eval_expr(rhs, use_help)
-        if use_help and op == '/+':
+        if use_help and oper == '/+':
             res = f"rem({lhs}, {rhs})"
-        elif use_help and op == '/-':
+        elif use_help and oper == '/-':
             res = f"flr({lhs}, {rhs})"
         else:
-            res = f"{lhs} {OP3[op]} {rhs}"
+            res = f"{lhs} {OP3[oper]} {rhs}"
         # print(expr, res)
         return final_format(res)
-    
+
     # lone variable
     if expr[0] == '*':
         if expr[1] == 'L':
@@ -228,14 +247,14 @@ def eval_expr(expr: str, use_help: bool, paren=True, lists=None):
         if res in lists:
             return lists[res]
         return res
-    
+
     # number
     return eval_number(expr)
 
 
 def add_helpers(np_code: str):
     """Add any extra helper functions the given code might need.
-    
+
     == eq
     >  gt
     <  lt
@@ -251,19 +270,19 @@ def add_helpers(np_code: str):
     ops = {}
     with open("numpad_helpers.py", 'r', encoding='utf-8') as file:
         text = file.read()
-    for op in op_name:
-        ops[op] = text.split(f"# {op}")[1]
+    for oper in op_name:
+        ops[oper] = text.split(f"# {oper}")[1]
 
     to_add = ""
-    for op in ops:
-        if op in np_code or (op == '_pair' and 'div' in np_code):
-            to_add += ops[op][1:] + '\n'
+    for oper, py_code in ops.items():
+        if oper in np_code or (oper == '_pair' and 'div' in np_code):
+            to_add += py_code[1:] + '\n'
 
     return to_add + np_code
 
 
 def eval_code(np_code: str):
-    """Transforms the given numpad code into Python, splitting along spaces.
+    """Transform the given numpad code into Python, splitting along spaces.
 
     >>> test = ('*1.2/3+4 '
                 '*1.2*3/4*5 '
@@ -285,7 +304,7 @@ def eval_code(np_code: str):
                 '.. '
                 '. '
                 )
-    # >>> print(convert_to_python(test))
+    >>> print(convert_to_python(test))
     v_1 = (2 / 3) + 4
     v_1 = ((2 * 3) / 4) * 5
     def v_337191(p_01=4):
@@ -304,10 +323,9 @@ def eval_code(np_code: str):
     """
     res = ""
     indentation = 0
-    # has_lists = R_LISTSTART.search(np_code) is not None
     has_lists = False
     for line in np_code.split():
-        if line.count('-\.') * 2 < line.count('\.'):
+        if line.count('-/.') * 2 < line.count('/.'):
             has_lists = True
             break
 
@@ -339,19 +357,19 @@ def eval_code(np_code: str):
                     v_name = 'v_' + v_name[1:]
                 expr = eval_expr(expr, has_lists, False)
                 res += '    ' * indentation + f"{v_name} = {expr}\n"
-        
+
         # function definition, with a variable and a dot
         elif R_DEFINE.match(line):
             assert current_func is None
             current_func = 'v_' + line[1:-1]
-        
+
         # default parameter
         elif R_PARAM.match(line):
             assert current_func is not None
             p_name, value = line.split('..')
             p_name = 'p_0' + p_name
             current_param[p_name] = eval_number(value)
-        
+
         # number of parameters
         elif R_NUMPARAM.match(line):
             assert current_func is not None
@@ -371,7 +389,7 @@ def eval_code(np_code: str):
             current_param = {}
             scope_stack.append(True)
             indentation += 1
-        
+
         # while statement
         elif line[:2] == '+/':
             assert current_func is None
@@ -379,13 +397,13 @@ def eval_code(np_code: str):
             res += '    ' * indentation + f"while {expr}:\n"
             scope_stack.append(False)
             indentation += 1
-        
+
         # elif statement
         elif line[:2] == '-/':
             assert current_func is None
             expr = eval_expr(line[2:], has_lists, False)
             res += '    ' * (indentation - 1) + f"elif {expr}:\n"
-        
+
         # if statement
         elif line[0] == '/':
             assert current_func is None
@@ -393,12 +411,12 @@ def eval_code(np_code: str):
             res += '    ' * indentation + f"if {expr}:\n"
             scope_stack.append(False)
             indentation += 1
-        
+
         # else statement
         elif line == '-':
             assert current_func is None
             res += '    ' * (indentation - 1) + "else:\n"
-        
+
         else:
             # print(line)
             assert False
@@ -410,96 +428,47 @@ def eval_code(np_code: str):
 
 
 def convert_to_python(np_code: str):
-    """Transforms the given numpad code into Python, splitting along spaces.
+    """Transform the given numpad code into Python, splitting along spaces.
 
     If the code fails to compile, returns 'Could not compile.'
     """
     try:
         return eval_code(np_code)
-    except Exception as e:
-        return "Could not compile: " + str(e), "Could not compile: " + str(e)
+    except Exception as err:
+        return "Could not compile: " + str(err), "Could not compile"
 
 
 if __name__ == "__main__":
-    # import doctest
     print("Testing...")
-    # doctest.testmod()
-    test = """*5174.
-            .1.
-            .*10.*01
-            .*11././.0.*5172-/.*01/././.
-            .+/*11.+0
-            ..*1.*11/0/0
-            ..*2.*11/0/1
-            ..*11.*11/+1
-            ..*3.*2-*1
-            ../*3.+1
-            ...*4.1
-            ...+/*4*2.-*3
-            ....*4.*4*2
-            ....
-            ...*4.*4/-2+*1
-            ...*14.*10/*4
-            ...*6.*1
-            ...+/*6.-*4
-            ....*16.*10/*6
-            ..../*16.+*14
-            .....*44.*4-1
-            ...../*6..*44
-            ......*10/*6.*14
-            ......*10/*4.*16
-            .....-
-            ......*10/*6.*10/*44
-            ......*10/*44.*14
-            ......*10/*4.*16
-            ......
-            .....*4.*4-1
-            ....-
-            .....*6.*6+1
-            .....
-            ....
-            ...*6.*4+1
-            ...+/*6.-*2
-            ....*16.*10/*6
-            ..../*16.-*14
-            .....*44.*4+1
-            ...../*6..*44
-            ......*10/*6.*14
-            ......*10/*4.*16
-            .....-
-            ......*10/*6.*10/*44
-            ......*10/*44.*14
-            ......*10/*4.*16
-            ......
-            .....*4.*4+1
-            .....
-            ....*6.*6+1
-            ....
-            ...*11.*11+/.*1.*4/.+/.*4+1.*2/.
-            ...
-            ..
-            .*00.*10
-            ."""
-    test = """\
-    *420.
-    .2.
-    ./*01.+*02
-    ..*1.*01
-    ..*2.*02
-    .-
-    ..*2.*01
-    ..*1.*02
+    TEST = """\
+    *2160.
+    .1.
+    .*1.*01/+10
+    .*2.*01/+100/-10
+    .*3.*01/+1000/-100
+    .*4.*01/-1000
+    ./*1.+*4
+    ..*5.*1
+    ..*1.*4
+    ..*4.*5
     ..
-    .*00.1
-    .*8.2
-    .+/*8.-*2/-2+1
-    ../*1/+*8+*2/+*8..0
-    ...*00.*8
-    ...
-    ..*8.*8+1
+    ./*2.+*3
+    ..*5.*2
+    ..*2.*3
+    ..*3.*5
     ..
+    ./*1.+*3
+    ..*5.*1
+    ..*1.*3
+    ..*3.*5
+    .-/*2.+*4
+    ..*5.*2
+    ..*2.*4
+    ..*4.*5
+    ..
+    .*5.*3+*4
+    .*00.*5*10+*1+*2
     .
-    *00.*420-/.15.21/.
     """
-    _, code = eval_code(test)
+    _, code = eval_code(TEST)
     print(code)
