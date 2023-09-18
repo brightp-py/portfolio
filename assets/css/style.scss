@@ -54,6 +54,10 @@ p {
     padding: 0px 0px 0px calc(calc(100% - 640px) / 2 + 10px);
 }
 
+#main_content {
+    background-color: #fafafa
+}
+
 #content {
     padding-top: 150%;
     transition: 0.2s;

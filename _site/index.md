@@ -16,6 +16,21 @@
     }
 </script>
 
+<script>
+    var bg = document.getElementsByTagName('main_content_wrap')[0];
+    bg.style.backgroundColor = '#fafafa';
+
+    // trigger this function every time the user scrolls
+    window.onscroll = function (event) {
+        var scroll = window.pageYOffset;
+        if (scroll < 300) {
+            body.style.backgroundColor = '#fafafa';
+        } else {
+            body.style.backgroundColor = '#afafaf';
+        }
+    }
+</script>
+
 <!-- links to other sites -->
 
 <div id="content" markdown="1">
